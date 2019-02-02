@@ -153,7 +153,7 @@ public class HomeFrame extends javax.swing.JFrame {
         if(searchTextField.getText().equalsIgnoreCase(""))
             JOptionPane.showMessageDialog(homeFrame, "Soryy", "Test", JOptionPane.ERROR_MESSAGE);
         
-        searchingWthIconJLabel.setVisible(true);
+        //searchingWthIconJLabel.setVisible(true);
         // turn off htmlunit warnings
         java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(java.util.logging.Level.OFF);
         java.util.logging.Logger.getLogger("org.apache.http").setLevel(java.util.logging.Level.OFF);
