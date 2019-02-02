@@ -10,16 +10,17 @@ import com.gargoylesoftware.htmlunit.html.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  *
  * @author hassanmumin
  */
 public class JobScraper {
-    
+
     private List<String> listOfAllJobs;
-    private WebClient client;
-    private HtmlPage innerPage;
-    private String urlMNGovCareerSite = "https://careers.mn.gov/psp/hcm92apc/MNCAREERS/HRCR/c/HRS_HRAM.HRS_APP_SCHJOB.GBL?Page=HRS_APP_SCHJOB&Action=U&FOCUS=Applicant&SiteId=1001";
+    private final WebClient client;
+    private final HtmlPage innerPage;
+    private final String urlMNGovCareerSite = "https://careers.mn.gov/psp/hcm92apc/MNCAREERS/HRCR/c/HRS_HRAM.HRS_APP_SCHJOB.GBL?Page=HRS_APP_SCHJOB&Action=U&FOCUS=Applicant&SiteId=1001";
 
     public JobScraper() throws IOException {
 
@@ -29,11 +30,9 @@ public class JobScraper {
         innerPage = (HtmlPage) iframe.getEnclosedPage();
     }
 
-
     public String getPageTitle() {
         return this.innerPage.getTitleText();
     }
-
 
     public void submitJobSearchForm(String jobTitle) throws IOException {
 
@@ -53,7 +52,6 @@ public class JobScraper {
         client.waitForBackgroundJavaScript(milliseconds);
     }
 
-
     public String getNumberOfJobsReturnedFromSearch() {
         DomNode node = innerPage.getElementById("HRS_SCH_WRK_HRS_SES_CNTS_MSG");
         String numJobsFound = node.getTextContent();
@@ -63,6 +61,7 @@ public class JobScraper {
 
     public String getJobsOnPageVsLeftToShow() {
         DomNode node = innerPage.getFirstByXPath("//span[contains(@class, 'PSGRIDCOUNTER')]");
+        
         return "Page: " + node.getTextContent();
     }
 
@@ -74,30 +73,32 @@ public class JobScraper {
         listOfAllJobs = new ArrayList<>();
         String jobsOnPage = getJobsOnPageVsLeftToShow();
         String jobsOnNextPage = "";
-        while(!(jobsOnPage.equalsIgnoreCase(jobsOnNextPage))) {
-            
+        while (!(jobsOnPage.equalsIgnoreCase(jobsOnNextPage))) {
+
             jobsOnPage = getJobsOnPageVsLeftToShow();
             List<DomNode> nodes = innerPage.getByXPath("//div[contains(@class, 'jobopeningid')]");
-            for(DomNode node : nodes){
+            for (DomNode node : nodes) {
                 //System.out.println(count + ": " + node.getTextContent());
-                listOfAllJobs.add( count + ": " + node.getTextContent());
+                listOfAllJobs.add(count + ": " + node.getTextContent());
                 count++;
             }
-           
+
             nextPageButton.click();
             waitUntilEverythingLoadsUp(2000);
             jobsOnNextPage = getJobsOnPageVsLeftToShow();
 
         }
-
-
     }
 
     public List<String> getListOfAllJobs() {
         return listOfAllJobs;
     }
-    
-    
-    
-    
+
 }
+
+
+
+//TODO: Fix spinner wheel when app is searhcing for jobs
+//TODO: Fix dialog box when no text entered in search field
+//TODO: refactor
+//TODO: add test cases
