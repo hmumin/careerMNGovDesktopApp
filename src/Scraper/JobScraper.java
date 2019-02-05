@@ -99,6 +99,5 @@ public class JobScraper {
 
 
 //TODO: Fix spinner wheel when app is searhcing for jobs
-//TODO: Fix dialog box when no text entered in search field
 //TODO: refactor
 //TODO: add test cases
