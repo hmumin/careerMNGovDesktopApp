@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
-import javax.swing.UIManager;
 
 /**
  *
@@ -198,7 +197,7 @@ public class HomeFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(homeFrame, "Search field cannot be empty", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             
-           
+           //cathc java.net SocketTimeoutException
             startThread();
             searchingWthLoadingIconJLabel.setVisible(true);
             searchButton.setEnabled(false);

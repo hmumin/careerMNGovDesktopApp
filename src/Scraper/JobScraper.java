@@ -98,6 +98,3 @@ public class JobScraper {
 
 
 
-//TODO: Fix spinner wheel when app is searhcing for jobs
-//TODO: refactor
-//TODO: add test cases
